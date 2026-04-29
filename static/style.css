@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Animal Recognition AI</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to right, #667eea, #764ba2);
+            text-align: center;
+            color: white;
+            margin: 0;
+        }
+
+        .container {
+            margin-top: 80px;
+            background: white;
+            color: black;
+            padding: 40px;
+            width: 400px;
+            margin-left: auto;
+            margin-right: auto;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+        }
+
+        h1 {
+            margin-bottom: 30px;
+        }
+
+        input[type="file"] {
+            margin: 15px 0;
+        }
+
+        button {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            font-size: 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background: #5a67d8;
+        }
+
+        .result {
+            margin-top: 25px;
+            font-size: 22px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        img {
+            margin-top: 20px;
+            max-width: 100%;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+<h1>🐾 Animal Recognition AI</h1>
+
+<div class="container">
+
+    <form method="POST" enctype="multipart/form-data">
+        <input type="file" name="image" accept="image/*" onchange="previewImage(event)" required>
+        <br><br>
+        <button type="submit">Detect Animal</button>
+    </form>
+
+    <!-- Image Preview -->
+    <img id="preview" src="" style="display:none;"/>
+
+    {% if result %}
+        <div class="result">
+            Detected: {{ result }}
+        </div>
+    {% endif %}
+
+</div>
+
+<script>
+function previewImage(event) {
+    const reader = new FileReader();
+    reader.onload = function(){
+        const img = document.getElementById('preview');
+        img.src = reader.result;
+        img.style.display = "block";
+    }
+    reader.readAsDataURL(event.target.files[0]);
+}
+</script>
+
+</body>
+</html>
