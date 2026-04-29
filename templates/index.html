@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Animal Recognition AI</title>
+</head>
+<body style="text-align:center; font-family:Arial;">
+
+<h1>🐾 Animal Recognition AI</h1>
+
+<form method="POST" enctype="multipart/form-data">
+    <input type="file" name="image" required>
+    <br><br>
+    <button type="submit">Detect Animal</button>
+</form>
+
+{% if result %}
+    <h2>Detected: {{ result }}</h2>
+{% endif %}
+
+</body>
+</html>
