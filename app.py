@@ -4,10 +4,12 @@ from ultralytics import YOLO
 
 app = Flask(__name__)
 
-# Load YOLO model (downloads automatically first time)
+# Load YOLO model
 model = YOLO("yolov8n.pt")
 
+
 def predict_image(img):
+
     results = model(img)
 
     names = results[0].names
@@ -16,8 +18,11 @@ def predict_image(img):
     detected = []
 
     if boxes is not None:
+
         for cls in boxes.cls:
+
             label = names[int(cls)]
+
             detected.append(label)
 
     if not detected:
@@ -28,17 +33,23 @@ def predict_image(img):
 
 @app.route("/", methods=["GET", "POST"])
 def index():
+
+    result = None
+
     if request.method == "POST":
+
         file = request.files["image"]
 
         if file:
+
             img = Image.open(file)
 
             result = predict_image(img)
 
-            return render_template("index.html", result=result)
-
-    return render_template("index.html")
+    return render_template(
+        "index.html",
+        result=result
+    )
 
 
 if __name__ == "__main__":

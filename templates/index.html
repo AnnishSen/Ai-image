@@ -1,22 +1,234 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
     <title>Animal Recognition AI</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
 </head>
-<body style="text-align:center; font-family:Arial;">
 
-<h1>🐾 Animal Recognition AI</h1>
+<body>
 
-<form method="POST" enctype="multipart/form-data">
-    <input type="file" name="image" required>
-    <br><br>
-    <button type="submit">Detect Animal</button>
-</form>
+    <!-- Background Orbs -->
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
 
-{% if result %}
-    <h2>Detected: {{ result }}</h2>
-{% endif %}
+    <!-- Main Layout -->
+    <div class="main-container">
+
+        <!-- LEFT SECTION -->
+        <div class="left-panel">
+
+            <!-- Badge -->
+            <div class="badge">
+
+                <span class="badge-dot"></span>
+
+                AI Powered
+
+            </div>
+
+            <!-- Heading -->
+            <h1>
+
+                Animal<br>
+
+                <span>Recognition</span>
+
+            </h1>
+
+            <p class="subtitle">
+
+                Upload an image and let AI
+                detect the animal instantly.
+
+            </p>
+
+            <div class="divider"></div>
+
+            <!-- Form -->
+            <form method="POST"
+                  enctype="multipart/form-data">
+
+                <!-- Upload Zone -->
+                <div class="upload-zone">
+
+                    <div class="upload-icon-wrap">
+
+                        🐾
+
+                    </div>
+
+                    <p class="main-text">
+
+                        Upload Animal Image
+
+                    </p>
+
+                    <p class="sub-text">
+
+                        Supported: JPG, PNG, WEBP
+
+                    </p>
+
+                    <!-- File Input -->
+                  <label for="file-upload"
+       class="custom-upload-btn">
+
+    <span class="upload-icon">
+        ⬆
+    </span>
+
+    <span class="upload-text">
+        Choose Image
+    </span>
+
+</label>
+
+<input type="file"
+       id="file-upload"
+       name="image"
+       accept="image/*"
+       required>
+
+                </div>
+
+                <!-- Button -->
+                <button type="submit"
+                        class="submit-btn">
+
+                    🔍 Detect Animal
+
+                </button>
+
+            </form>
+
+            <!-- Result -->
+            {% if result %}
+
+            <div class="result-box visible">
+
+                <p class="result-label">
+
+                    Detected Animal
+
+                </p>
+
+                <p class="result-value">
+
+                    {{ result }}
+
+                </p>
+
+            </div>
+
+            {% endif %}
+
+        </div>
+
+        <!-- RIGHT SECTION -->
+        <div class="right-panel">
+
+            <div class="preview-card">
+
+                <h2>
+
+                    Uploaded Image
+
+                </h2>
+
+                <!-- Image Preview -->
+                <div class="preview-container"
+                     id="preview-container">
+
+                    <img id="preview-image"
+                         src=""
+                         alt="Preview">
+
+                </div>
+
+                <p class="preview-text">
+
+                    Image preview will appear here
+
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+
+const fileInput =
+    document.getElementById("file-upload");
+
+const previewContainer =
+    document.getElementById("preview-container");
+
+const previewImage =
+    document.getElementById("preview-image");
+
+/* Restore image after refresh */
+window.addEventListener("load", () => {
+
+    const savedImage =
+        localStorage.getItem("previewImage");
+
+    if (savedImage) {
+
+        previewImage.src = savedImage;
+
+        previewContainer.style.display = "block";
+
+    }
+
+});
+
+/* Show preview on upload */
+fileInput.addEventListener("change", function () {
+
+    const file = this.files[0];
+
+    if (file) {
+
+        const reader = new FileReader();
+
+        reader.onload = function (e) {
+
+            const imageData = e.target.result;
+
+            previewImage.src = imageData;
+
+            previewContainer.style.display = "block";
+
+            /* Save image */
+            localStorage.setItem(
+                "previewImage",
+                imageData
+            );
+
+        };
+
+        reader.readAsDataURL(file);
+
+    }
+
+});
+
+</script>
 
 </body>
+
 </html>
