@@ -80,25 +80,26 @@
 
                     </p>
 
-                    <!-- File Input -->
-                  <label for="file-upload"
-       class="custom-upload-btn">
+                    <!-- Custom Upload Button -->
+                    <label for="file-upload"
+                           class="custom-upload-btn">
 
-    <span class="upload-icon">
-        ⬆
-    </span>
+                        <span class="upload-icon">
+                            ⬆
+                        </span>
 
-    <span class="upload-text">
-        Choose Image
-    </span>
+                        <span class="upload-text">
+                            Choose Image
+                        </span>
 
-</label>
+                    </label>
 
-<input type="file"
-       id="file-upload"
-       name="image"
-       accept="image/*"
-       required>
+                    <!-- Hidden Input -->
+                    <input type="file"
+                           id="file-upload"
+                           name="image"
+                           accept="image/*"
+                           required>
 
                 </div>
 
@@ -171,63 +172,62 @@
     <!-- JavaScript -->
     <script>
 
-const fileInput =
-    document.getElementById("file-upload");
+        const fileInput =
+            document.getElementById("file-upload");
 
-const previewContainer =
-    document.getElementById("preview-container");
+        const previewContainer =
+            document.getElementById("preview-container");
 
-const previewImage =
-    document.getElementById("preview-image");
+        const previewImage =
+            document.getElementById("preview-image");
 
-/* Restore image after refresh */
-window.addEventListener("load", () => {
+        /* Restore image after refresh */
+        window.addEventListener("load", () => {
 
-    const savedImage =
-        localStorage.getItem("previewImage");
+            const savedImage =
+                localStorage.getItem("previewImage");
 
-    if (savedImage) {
+            if (savedImage) {
 
-        previewImage.src = savedImage;
+                previewImage.src = savedImage;
 
-        previewContainer.style.display = "block";
+                previewContainer.style.display = "block";
 
-    }
+            }
 
-});
+        });
 
-/* Show preview on upload */
-fileInput.addEventListener("change", function () {
+        /* Show preview */
+        fileInput.addEventListener("change", function () {
 
-    const file = this.files[0];
+            const file = this.files[0];
 
-    if (file) {
+            if (file) {
 
-        const reader = new FileReader();
+                const reader = new FileReader();
 
-        reader.onload = function (e) {
+                reader.onload = function (e) {
 
-            const imageData = e.target.result;
+                    const imageData = e.target.result;
 
-            previewImage.src = imageData;
+                    previewImage.src = imageData;
 
-            previewContainer.style.display = "block";
+                    previewContainer.style.display = "block";
 
-            /* Save image */
-            localStorage.setItem(
-                "previewImage",
-                imageData
-            );
+                    localStorage.setItem(
+                        "previewImage",
+                        imageData
+                    );
 
-        };
+                };
 
-        reader.readAsDataURL(file);
+                reader.readAsDataURL(file);
 
-    }
+            }
 
-});
+        });
 
-</script>
+    </script>
 
 </body>
 
